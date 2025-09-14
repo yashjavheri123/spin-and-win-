@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spin & Win - Newsiddhivinayakmobiles 🎉</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- GSAP TweenMax -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+
+  <!-- Winwheel.js -->
+  <script src="Winwheel.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>🎡 Spin & Win at Newsiddhivinayakmobiles!</h1>
+    <p style="font-size:18px; margin-bottom:15px;">Spin the wheel and win exciting gifts from our shop!</p>
+    
+    <!-- Wheel Canvas -->
+    <canvas id="canvas" width="400" height="400"></canvas>
+    
+    <br>
+    <button class="btn" onclick="wheel.startAnimation()">Spin Now 🎉</button>
+    
+    <p id="result"></p>
+  </div>
+
+  <script>
+    // Create Wheel
+    let wheel = new Winwheel({
+      'canvasId': 'canvas',
+      'numSegments': 6,
+      'outerRadius': 180,
+      'segments': [
+        {'fillStyle': '#FF6B6B', 'text': 'Free Cover'},
+        {'fillStyle': '#6BCB77', 'text': '₹100 OFF'},
+        {'fillStyle': '#4D96FF', 'text': 'Earphones'},
+        {'fillStyle': '#FFD93D', 'text': 'Phone Case'},
+        {'fillStyle': '#B983FF', 'text': 'Charger'},
+        {'fillStyle': '#FF9F1C', 'text': 'Try Again 😅'}
+      ],
+      'animation': {
+        'type': 'spinToStop',
+        'duration': 5,
+        'spins': 8,
+        'callbackFinished': function(segment) {
+          document.getElementById('result').innerHTML = 
+            `<span style="font-size:26px; font-weight:700; color:#fff200; text-shadow: 2px 2px 5px #000;">🎁 You Won: ${segment.text}!</span><br>
+            Take a screenshot & show at Newsiddhivinayakmobiles.`;
+        }
+      }
+    });
+
+    // Draw wheel
+    wheel.draw();
+
+    // Add pointer arrow at top
+    let pointer = document.createElement('div');
+    pointer.style.width = '0';
+    pointer.style.height = '0';
+    pointer.style.borderLeft = '20px solid transparent';
+    pointer.style.borderRight = '20px solid transparent';
+    pointer.style.borderBottom = '35px solid #fff200';
+    pointer.style.position = 'absolute';
+    pointer.style.top = '150px';
+    pointer.style.left = '50%';
+    pointer.style.transform = 'translateX(-50%)';
+    pointer.style.zIndex = '10';
+    document.body.appendChild(pointer);
+  </script>
+</body>
+</html>
